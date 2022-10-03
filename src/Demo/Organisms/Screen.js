@@ -1,4 +1,4 @@
-import { Box } from "../../Library/";
+import { Box, Text } from "../../Library/";
 
 const Screen = ({ children }) => {
   return (
@@ -7,17 +7,12 @@ const Screen = ({ children }) => {
         parse="pa:20 br:10 d:inline-flex fd:column mw:200"
         border="1px solid #DDDDDD"
       >
-        <font
-          color="#505050"
-          size={4}
-          face="Verdana, Geneva, sans-serif"
-          weight="600"
-        >
-          <b> John Doe</b>
-        </font>
-        <font color="#909090" size={3} face="Verdana, Geneva, sans-serif">
+        <Text color="#505050" size={16} weight="600">
+          John Doe
+        </Text>
+        <Text color="#909090" size={14} weight="500">
           @username
-        </font>
+        </Text>
       </Box>
     </Box>
   );

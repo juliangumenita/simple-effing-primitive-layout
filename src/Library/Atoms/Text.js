@@ -22,6 +22,9 @@ const Component = ({
   weight = "400",
   to,
   target,
+  css,
+  id,
+  referrer,
 }) => {
   return to ? (
     <a
@@ -52,6 +55,9 @@ const Component = ({
         right: mode === "position" ? right : undefined,
         ...style,
       }}
+      className={css}
+      id={id}
+      ref={referrer}
     >
       {children}
     </a>
@@ -82,6 +88,9 @@ const Component = ({
         right: mode === "position" ? right : undefined,
         ...style,
       }}
+      className={css}
+      id={id}
+      ref={referrer}
     >
       {children}
     </span>

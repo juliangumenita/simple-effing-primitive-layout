@@ -33,7 +33,7 @@ const Box = ({
   image,
   id,
   scroll = false,
-  ref,
+  referrer = false,
   parse = false,
 }) => {
   const reference = useRef(null);
@@ -60,7 +60,7 @@ const Box = ({
 
   return (
     <div
-      ref={ref || reference}
+      ref={referrer || reference}
       id={id}
       onClick={press}
       style={{

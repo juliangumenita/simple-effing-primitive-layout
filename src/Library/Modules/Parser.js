@@ -56,6 +56,7 @@ class Parser {
       fd: "flexDirection",
       f: "flex",
       c: "backgroundColor",
+      br: "borderRadius",
     };
   }
 }

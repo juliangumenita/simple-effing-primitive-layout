@@ -12,9 +12,11 @@
 </div>
 <br />
 <div align="center">
-  <sub>Made by <a href="https://gumenita.com/">Julian Gumenita</a>‍🍳</sub>
+  <sub>Made by <a href="https://gumenita.com/">Julian Gumenita</a>‍</sub>
 </div>
 <br />
+
+# Features
 
 # Getting started
 

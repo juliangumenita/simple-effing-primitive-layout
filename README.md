@@ -1,5 +1,20 @@
-# simple-effing-primitive-layout
-Simple f*cking primitive layout for React.
+<a href="https://github.com/juliangumenita/simple-effing-primitive-layout"><img alt="simple-effing-primitive-layout" src="https://raw.githubusercontent.com/juliangumenita/simple-effing-primitive-layout/main/src/Demo/Assets/Header.svg"/></a>
+<br />
+<div align="center"><strong>Simple f*cking primitive layout for React.</strong></div>
+<div align="center">Lightweight, customizable and super fast.</div>
+<br />
+<div align="center">
+<a href="https://gumenita.com/">Website</a>
+<span> · </span>
+<a href="https://github.com/juliangumenita/simple-effing-primitive-layout">Documentation</a>
+<span> · </span>
+<a href="https://www.instagram.com/juliangumenita/">Instagram</a>
+</div>
+<br />
+<div align="center">
+  <sub>Made by <a href="https://gumenita.com/">Julian Gumenita</a>‍🍳</sub>
+</div>
+<br />
 
 # Getting started
 
@@ -12,12 +27,25 @@ npm install --save simple-effing-primitive-layout
 ```
 
 # Usage
+
 ```jsx
-import { Box } from 'simple-effing-primitive-layout'
+import { Box } from "simple-effing-primitive-layout";
 
 ReactDOM.render(
-  <Box width="100%" height="100%" display="flex" align="center" justify="center">
-    <Box padding={20} width={200} border="1px solid #DDDDDD" display="inline-flex" direction="column">
+  <Box
+    width="100%"
+    height="100%"
+    display="flex"
+    align="center"
+    justify="center"
+  >
+    <Box
+      padding={20}
+      width={200}
+      border="1px solid #DDDDDD"
+      display="inline-flex"
+      direction="column"
+    >
       <font
         color="#505050"
         size={4}
@@ -31,13 +59,14 @@ ReactDOM.render(
       </font>
     </Box>
   </Box>,
-  document.getElementById('root')
-)
+  document.getElementById("root")
+);
 ```
 
 # Parser
+
 ```jsx
-import { Box } from 'simple-effing-primitive-layout'
+import { Box } from "simple-effing-primitive-layout";
 
 ReactDOM.render(
   <Box parse="w:100% h:100% d:flex a:center j:center">
@@ -58,6 +87,6 @@ ReactDOM.render(
       </font>
     </Box>
   </Box>,
-  document.getElementById('root')
-)
+  document.getElementById("root")
+);
 ```

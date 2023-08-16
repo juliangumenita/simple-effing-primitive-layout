@@ -1,6 +1,6 @@
 {
   "name": "simple-effing-primitive-layout",
-  "version": "4.0.2",
+  "version": "5.0.1",
   "description": "Simple f*cking primitive layout for React.",
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",

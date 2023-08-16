@@ -15,13 +15,17 @@ const Screen = ({ children }) => {
 
   return !loaded ? null : (
     <Box parse="w:100% h:100% d:flex a:center j:center">
-      <Box parse="w:100 h:100 br:5 c:#primary -bs:#shadow" />
-      <Text tag="h1" native={{ data: "title" }}>
-        hello
-      </Text>
-      <Box element="a" native={{ href: "https://google.com" }}>
-        google.com
-      </Box>
+      {[...Array(100)].map((a, aa) => (
+        <Box css="d:inline-flex a:center j:center fw:wrap block">
+          {[...Array(100)].map((b, bb) => (
+            <Box css="d:inline-flex a:center j:center fw:wrap block">
+              {[...Array(1)].map((c, cc) => (
+                <Box css="d:inline-flex a:center j:center fw:wrap block" />
+              ))}
+            </Box>
+          ))}
+        </Box>
+      ))}
     </Box>
   );
 };

@@ -47,9 +47,16 @@ const Box = ({
   native = {},
   element = "div",
 }) => {
-  const styles = React.useMemo(() => {
-    const parsed = parse ? Parser.parse(parse) : {};
+  const parsed = React.useMemo(() => {
+    return parse
+      ? Parser.parse(parse)
+      : {
+          style: {},
+          classes: "",
+        };
+  }, [parse]);
 
+  const styles = React.useMemo(() => {
     let _styles = {};
 
     _styles = apply(_styles, "height", height);
@@ -131,7 +138,7 @@ const Box = ({
 
     _styles = {
       ..._styles,
-      ...parsed,
+      ...parsed.style,
       ...style,
     };
 
@@ -174,7 +181,9 @@ const Box = ({
       id={id}
       onClick={press}
       style={styles}
-      className={`${css ? ` ${css}` : ""}`}
+      className={
+        css ? `${String(parsed?.classes)}${css}` : `${String(parsed?.classes)}`
+      }
       {...native}
     >
       {children}

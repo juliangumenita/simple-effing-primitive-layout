@@ -2,7 +2,7 @@ import React from "react";
 
 const Component = ({
   size = 16,
-  family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif",
+  family = "inherit",
   lines = false,
   press,
   style,
@@ -25,7 +25,11 @@ const Component = ({
   css,
   id,
   referrer,
+  tag = "span",
+  native = {},
 }) => {
+  const Tag = `${tag}`;
+
   return to ? (
     <a
       href={to}
@@ -58,11 +62,12 @@ const Component = ({
       className={css}
       id={id}
       ref={referrer}
+      {...native}
     >
       {children}
     </a>
   ) : (
-    <span
+    <Tag
       onClick={press}
       style={{
         display,
@@ -91,9 +96,10 @@ const Component = ({
       className={css}
       id={id}
       ref={referrer}
+      {...native}
     >
       {children}
-    </span>
+    </Tag>
   );
 };
 

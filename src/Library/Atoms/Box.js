@@ -1,110 +1,184 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import Parser from "../Modules/Parser";
+
+const apply = (styles = {}, rule = "", value = null, defaults = null) => {
+  if (value) {
+    styles[rule] = value;
+  } else {
+    if (defaults) {
+      styles[rule] = defaults;
+    }
+  }
+  return styles;
+};
 
 const Box = ({
   children,
-  top = 0,
-  left = 0,
-  bottom = 0,
-  right = 0,
+  top,
+  left,
+  bottom,
+  right,
   flex,
   align,
   justify,
   direction,
   wrap,
-  color = "transparent",
-  radius = 0,
-  shadow = false,
+  color,
+  radius,
+  shadow,
   height,
   width,
   style,
   press,
-  opacity = 1,
-  padding = false,
-  margin = false,
+  opacity,
+  padding,
+  margin,
   mode = "margin",
-  position = "static",
+  position,
   overflow,
-  display = "block",
-  all = false,
+  display,
   border,
   css,
   layer,
   image,
   id,
-  scroll = false,
-  referrer = false,
+  reference = false,
   parse = false,
+  native = {},
+  element = "div",
 }) => {
-  const reference = useRef(null);
+  const styles = React.useMemo(() => {
+    const parsed = parse ? Parser.parse(parse) : {};
 
-  useEffect(() => {
-    try {
-      if (reference.current && scroll) {
-        if (scroll.left) {
-          reference.current.scrollLeft = scroll.left;
-        }
-        if (scroll.top) {
-          reference.current.scrollTop = scroll.top;
-        }
-      }
-    } catch (Error) {
-      console.error(Error);
+    let _styles = {};
+
+    _styles = apply(_styles, "height", height);
+    _styles = apply(_styles, "width", width);
+    _styles = apply(_styles, "opacity", opacity);
+    _styles = apply(_styles, "over", overflow);
+    _styles = apply(_styles, "display", display);
+    _styles = apply(_styles, "border", border);
+    _styles = apply(_styles, "position", position);
+    _styles = apply(_styles, "cursor", press ? "pointer" : undefined);
+    _styles = apply(_styles, "backgroundColor", color);
+    _styles = apply(_styles, "borderRadius", radius);
+    _styles = apply(_styles, "flex", flex);
+    _styles = apply(_styles, "flexDirection", direction);
+    _styles = apply(_styles, "flexWrap", wrap);
+    _styles = apply(_styles, "alignItems", align);
+    _styles = apply(_styles, "justifyContent", justify);
+    _styles = apply(
+      _styles,
+      "paddingTop",
+      padding || mode === "padding" ? top : undefined
+    );
+    _styles = apply(
+      _styles,
+      "paddingLeft",
+      padding || mode === "padding" ? left : undefined
+    );
+    _styles = apply(
+      _styles,
+      "paddingBottom",
+      padding || mode === "padding" ? bottom : undefined
+    );
+    _styles = apply(
+      _styles,
+      "paddingRight",
+      padding || mode === "padding" ? right : undefined
+    );
+    _styles = apply(
+      _styles,
+      "marginTop",
+      margin || mode === "margin" ? top : undefined
+    );
+    _styles = apply(
+      _styles,
+      "marginLeft",
+      margin || mode === "margin" ? left : undefined
+    );
+    _styles = apply(
+      _styles,
+      "marginBottom",
+      margin || mode === "margin" ? bottom : undefined
+    );
+    _styles = apply(
+      _styles,
+      "marginRight",
+      margin || mode === "margin" ? right : undefined
+    );
+    _styles = apply(_styles, "top", mode === "position" ? top : undefined);
+    _styles = apply(_styles, "left", mode === "position" ? left : undefined);
+    _styles = apply(
+      _styles,
+      "bottom",
+      mode === "position" ? bottom : undefined
+    );
+    _styles = apply(_styles, "right", mode === "position" ? right : undefined);
+    _styles = apply(_styles, "boxShadow", shadow);
+    _styles = apply(
+      _styles,
+      "boxSizing",
+      top || left || right || bottom ? "border-box" : undefined
+    );
+    _styles = apply(_styles, "zIndex", layer);
+    if (image) {
+      _styles = apply(_styles, "backgroundImage", image);
+      _styles = apply(_styles, "backgroundRepeat", "no-repeat");
+      _styles = apply(_styles, "backgroundSize", "cover");
+      _styles = apply(_styles, "backgroundPosition", "center");
     }
-  }, [reference, scroll]);
 
-  let parsed = {};
-  if (parse) {
-    parsed = Parser.parse(parse);
-  }
+    _styles = {
+      ..._styles,
+      ...parsed,
+      ...style,
+    };
+
+    return _styles;
+  }, [
+    height,
+    width,
+    opacity,
+    overflow,
+    display,
+    border,
+    position,
+    press,
+    color,
+    radius,
+    flex,
+    direction,
+    wrap,
+    align,
+    justify,
+    padding,
+    margin,
+    mode,
+    top,
+    left,
+    bottom,
+    right,
+    shadow,
+    layer,
+    image,
+    parse,
+    style,
+  ]);
+
+  const Element = `${element}`;
 
   return (
-    <div
-      ref={referrer || reference}
+    <Element
+      ref={reference || undefined}
       id={id}
       onClick={press}
-      style={{
-        height,
-        width,
-        opacity,
-        overflow,
-        display,
-        border,
-        position,
-        cursor: press ? "pointer" : undefined,
-        backgroundColor: color,
-        backgroundImage: image || undefined,
-        borderRadius: radius,
-        flex: flex ? flex : undefined,
-        flexDirection: direction,
-        flexWrap: wrap,
-        alignItems: align,
-        justifyContent: justify,
-        paddingTop: padding || mode === "padding" ? top : undefined,
-        paddingLeft: padding || mode === "padding" ? left : undefined,
-        paddingBottom: padding || mode === "padding" ? bottom : undefined,
-        paddingRight: padding || mode === "padding" ? right : undefined,
-        marginTop: margin || mode === "margin" ? top : undefined,
-        marginLeft: margin || mode === "margin" ? left : undefined,
-        marginBottom: margin || mode === "margin" ? bottom : undefined,
-        marginRight: margin || mode === "margin" ? right : undefined,
-        top: mode === "position" ? top : undefined,
-        left: mode === "position" ? left : undefined,
-        bottom: mode === "position" ? bottom : undefined,
-        right: mode === "position" ? right : undefined,
-        boxShadow: shadow,
-        boxSizing: "border-box",
-        zIndex: layer,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        ...parsed,
-        ...style,
-      }}
-      className={css}
+      style={styles}
+      className={`${css ? ` ${css}` : ""}`}
+      {...native}
     >
       {children}
-    </div>
+    </Element>
   );
 };
 

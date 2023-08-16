@@ -1,3 +1,5 @@
+import Memorize from "./Memorize";
+
 class Parser {
   static parse(string = "") {
     const keys = this.keys();
@@ -5,18 +7,60 @@ class Parser {
 
     if (typeof string === "string") {
       const items = string.split(" ");
-      items.map((item) => {
-        const values = item.split(":");
-        const name = values[0] || "";
-        const value = values[1] || "";
 
-        if (keys[name]) {
-          style[keys[name]] = isNaN(value) ? value : parseFloat(value, 10);
+      const _items = [];
+
+      items.map((item, b) => {
+        if (item.includes("@")) {
+          return this.transform(item)
+            .split(" ")
+            .map((i) => _items.push(i));
+        }
+        return _items.push(item);
+      });
+
+      _items.map((item) => {
+        const values = item.split(":");
+
+        if (values.length === 2) {
+          const name = values[0] || "";
+          const value = values[1] || "";
+          const _value =
+            value.includes("#") && Memorize.has(value)
+              ? Memorize.get(value)
+              : value;
+
+          if (Memorize.has(name) && name.includes("-")) {
+            style[Memorize.get(name)] = isNaN(_value)
+              ? _value
+              : parseFloat(_value, 10);
+          } else {
+            if (value.includes("?")) {
+              style[keys[name]] = `var(--${value.replaceAll("?", "")})`;
+            } else if (keys[name]) {
+              style[keys[name]] = isNaN(_value)
+                ? _value
+                : parseFloat(_value, 10);
+            }
+          }
         }
       });
     }
 
     return style;
+  }
+
+  static transform(item = "") {
+    if (Memorize.has(item)) {
+      return Memorize.get(item);
+    }
+
+    return (
+      {
+        fc: "d:flex a:center j:center",
+        ifc: "d:inline-flex a:center j:center",
+      }[item.replaceAll("@", "")] || ""
+    );
   }
 
   static keys() {
@@ -58,6 +102,31 @@ class Parser {
       c: "backgroundColor",
       br: "borderRadius",
     };
+  }
+
+  static declare(items = {}) {
+    Object.entries(items).map(([key, value]) => {
+      Memorize.set(key, String(value));
+    });
+  }
+
+  static memory() {
+    return Memorize;
+  }
+
+  static push(css) {
+    if (window !== undefined) {
+      const exists = document.getElementById("simple-effing-css");
+
+      if (exists) {
+        exists.innerHTML += css;
+      } else {
+        const style = document.createElement("style");
+        style.id = "simple-effing-css";
+        style.innerHTML = css;
+        document.head.appendChild(style);
+      }
+    }
   }
 }
 

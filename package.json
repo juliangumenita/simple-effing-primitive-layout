@@ -1,8 +1,7 @@
 {
   "name": "simple-effing-primitive-layout",
-  "version": "6.0.7-beta",
+  "version": "6.0.9-beta",
   "type": "module",
-  "exports": "./build/index.js",
   "types": "./build/index.d.ts",
   "main": "./build/index.js",
   "module": "./build/index.js",

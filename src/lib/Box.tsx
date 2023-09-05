@@ -1,7 +1,14 @@
-import React from "react";
-import Parser from "../Modules/Parser";
+import React, { useMemo } from "react";
+import Parser from "./Parser.js";
 
-const apply = (styles = {}, rule = "", value = null, defaults = null) => {
+const apply = (
+  styles: {
+    [key: string]: unknown;
+  },
+  rule: string,
+  value: unknown,
+  defaults: unknown = null
+) => {
   if (value) {
     styles[rule] = value;
   } else {
@@ -12,7 +19,71 @@ const apply = (styles = {}, rule = "", value = null, defaults = null) => {
   return styles;
 };
 
-const Box = ({
+interface BoxProps {
+  children?:
+    | JSX.Element
+    | React.JSX.Element
+    | React.ReactElement
+    | React.ReactNode
+    | string
+    | number
+    | null
+    | undefined
+    | (
+        | JSX.Element
+        | React.JSX.Element
+        | React.ReactElement
+        | React.ReactNode
+        | string
+        | number
+        | null
+        | undefined
+      )[];
+  top?: number | string;
+  left?: number | string;
+  bottom?: number | string;
+  right?: number | string;
+  flex?: number | string;
+  align?: "flex-start" | "center" | "flex-end" | "stretch";
+  justify?:
+    | "flex-start"
+    | "center"
+    | "flex-end"
+    | "space-between"
+    | "space-around"
+    | "space-evenly";
+  direction?: "row" | "column" | "row-reverse" | "column-reverse";
+  wrap?: "nowrap" | "wrap" | "wrap-reverse";
+  color?: string;
+  radius?: number;
+  shadow?: string;
+  height?: number | string;
+  width?: number | string;
+  style?: {
+    [key: string]: unknown;
+  };
+  press?: React.MouseEventHandler<HTMLDivElement>;
+  opacity?: number;
+  padding?: number | string;
+  margin?: number | string;
+  mode?: "margin" | "padding" | "position";
+  position?: "absolute" | "relative" | "fixed" | "sticky";
+  overflow?: "visible" | "hidden" | "scroll" | "auto";
+  display?: "inline" | "block" | "inline-block" | "flex" | "none";
+  border?: string;
+  css?: string;
+  layer?: number;
+  image?: string;
+  id?: string;
+  reference?: React.Ref<HTMLDivElement>;
+  parse?: string;
+  native?: {
+    [key: string]: unknown;
+  };
+  element?: string;
+}
+
+export const Box = ({
   children,
   top,
   left,
@@ -42,12 +113,12 @@ const Box = ({
   layer,
   image,
   id,
-  reference = false,
-  parse = false,
+  reference,
+  parse,
   native = {},
   element = "div",
-}) => {
-  const parsed = React.useMemo(() => {
+}: BoxProps) => {
+  const parsed = useMemo(() => {
     return parse
       ? Parser.parse(parse)
       : {
@@ -56,7 +127,7 @@ const Box = ({
         };
   }, [parse]);
 
-  const styles = React.useMemo(() => {
+  const styles = useMemo(() => {
     let _styles = {};
 
     _styles = apply(_styles, "height", height);
@@ -173,17 +244,23 @@ const Box = ({
     style,
   ]);
 
-  const Element = `${element}`;
+  const Element = `${element}` as keyof JSX.IntrinsicElements;
+
+  const extra: {
+    [key: string]: unknown;
+  } = {
+    ref: reference,
+  };
 
   return (
     <Element
-      ref={reference || undefined}
       id={id}
       onClick={press}
       style={styles}
       className={
         css ? `${String(parsed?.classes)}${css}` : `${String(parsed?.classes)}`
       }
+      {...extra}
       {...native}
     >
       {children}

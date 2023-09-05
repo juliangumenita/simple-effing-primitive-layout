@@ -1,53 +1,73 @@
 {
   "name": "simple-effing-primitive-layout",
-  "version": "5.0.1",
-  "description": "Simple f*cking primitive layout for React.",
-  "main": "lib/index.cjs.js",
-  "module": "lib/index.esm.js",
+  "version": "6.0.7-beta",
+  "type": "module",
+  "exports": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "main": "./build/index.js",
+  "module": "./build/index.js",
+  "license": "MIT",
+  "engines": {
+    "node": "^18.17.1",
+    "npm": "^9.6.7"
+  },
+  "volta": {
+    "node": "18.17.1",
+    "npm": "9.6.7"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "build": "rollup -c",
-    "demo": "react-scripts start",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/juliangumenita/simple-effing-primitive-layout.git"
-  },
-  "keywords": [
-    "react"
-  ],
-  "author": "Julian Gumenita <julian@gumenita.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/juliangumenita/simple-effing-primitive-layout/issues"
-  },
-  "homepage": "",
-  "dependencies": {
-    "@babel/runtime": "^7.19.0"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "build": "npm run clean && npm run type:dts && npm run build:main",
+    "build:main": "tsx ./scripts/build.ts",
+    "clean": "rimraf build coverage nyc_output",
+    "type:dts": "tsc --emitDeclarationOnly --project tsconfig.build.json",
+    "type:check": "tsc --noEmit",
+    "format": "prettier \"src/**/*.ts\" --write",
+    "format:check": "prettier \"src/**/*.ts\" --check",
+    "lint": "eslint src --ext .ts --fix",
+    "lint:check": "eslint src --ext .ts",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
+    "spell:check": "cspell \"{README.md,CODE_OF_CONDUCT.md,CONTRIBUTING.md,.github/*.md,src/**/*.ts}\"",
+    "cz": "cz",
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
-    "@babel/core": "^7.19.3",
-    "@babel/plugin-transform-runtime": "^7.19.1",
-    "@babel/preset-env": "^7.19.3",
-    "@babel/preset-react": "^7.18.6",
-    "@rollup/plugin-babel": "^5.3.1",
-    "babel-plugin-dev-expression": "^0.2.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1",
-    "rollup": "^2.79.1",
-    "typescript": "^4.8.4"
+    "@ryansonshine/commitizen": "^4.2.8",
+    "@ryansonshine/cz-conventional-changelog": "^3.3.4",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^10.0.4",
+    "@semantic-release/github": "^9.0.4",
+    "@semantic-release/npm": "^10.0.5",
+    "@semantic-release/release-notes-generator": "^11.0.7",
+    "@types/node": "^18.16.3",
+    "@types/prompts": "^2.4.4",
+    "@types/react": "^18.2.21",
+    "@typescript-eslint/eslint-plugin": "^6.5.0",
+    "@typescript-eslint/parser": "^6.5.0",
+    "c8": "^8.0.1",
+    "cspell": "^7.3.2",
+    "esbuild": "^0.19.2",
+    "eslint": "^8.48.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-typescript": "^3.6.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "globby": "^13.2.2",
+    "nyc": "^15.1.0",
+    "prettier": "^3.0.3",
+    "rimraf": "^5.0.1",
+    "semantic-release": "^21.1.1",
+    "source-map-support": "^0.5.21",
+    "tsx": "^3.12.8",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.3"
+  },
+  "dependencies": {
+    "react": "^18.2.0"
   }
 }

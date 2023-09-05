@@ -1,23 +1,29 @@
-import Memorize from "./Memorize";
+import Memorize from "./Memorize.js";
 
 class Parser {
   static parse(string = "") {
-    const keys = this.keys();
+    const keys: {
+      [key: string]: string;
+    } = this.keys();
     const statics = this.statics();
-    const auto = this.auto();
-    const style = {};
+    const auto: {
+      [key: string]: string[];
+    } = this.auto();
+    const style: {
+      [key: string]: unknown;
+    } = {};
     let classes = "";
 
     if (typeof string === "string") {
       const items = string.split(" ");
 
-      const _items = [];
+      const _items: string[] = [];
 
       items.map((item, b) => {
         if (item.includes("@")) {
           return this.transform(item)
             .split(" ")
-            .map((i) => _items.push(i));
+            .map((i: string) => _items.push(i));
         }
         return _items.push(item);
       });
@@ -47,14 +53,17 @@ class Parser {
           if (Memorize.has(name) && name.includes("-")) {
             style[Memorize.get(name)] = isNaN(_value)
               ? _value
-              : parseFloat(_value, 10);
+              : parseFloat(_value);
           } else {
             if (value.includes("?")) {
-              style[keys[name]] = `var(--${value.replaceAll("?", "")})`;
+              style[keys[name] as string] = `var(--${value.replaceAll(
+                "?",
+                "",
+              )})`;
             } else if (keys[name]) {
-              style[keys[name]] = isNaN(_value)
+              style[keys[name] as string] = isNaN(_value)
                 ? _value
-                : parseFloat(_value, 10);
+                : parseFloat(_value);
             }
           }
         }
@@ -129,7 +138,7 @@ class Parser {
       mw: ["0", "auto", "inherit", "unset", "100%", "0%"],
       mh: ["0", "auto", "inherit", "unset", "100%", "0%"],
       mxh: ["0", "auto", "inherit", "unset", "100%", "0%"],
-      mxh: ["0", "auto", "inherit", "unset", "100%", "0%"],
+      mxw: ["0", "auto", "inherit", "unset", "100%", "0%"],
       pa: ["0", "auto", "inherit", "unset", "100%", "0%"],
       pt: ["0", "auto", "inherit", "unset", "100%", "0%"],
       pl: ["0", "auto", "inherit", "unset", "100%", "0%"],

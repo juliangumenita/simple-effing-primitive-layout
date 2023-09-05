@@ -1,26 +1,22 @@
 {
+  "include": ["./src/**/*.ts*"],
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx",
+    "lib": ["es2022"],
+    "module": "nodenext",
+    "target": "es2022",
+    "moduleResolution": "nodenext",
+
+    "rootDir": "./src",
+    "outDir": "build",
+
     "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
-  },
-  "include": [
-    "src"
-  ]
+    "declaration": true,
+    "resolveJsonModule": true
+  }
 }

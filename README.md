@@ -1,5 +1,6 @@
-<a href="https://github.com/juliangumenita/simple-effing-primitive-layout"><img alt="simple-effing-primitive-layout" src="https://raw.githubusercontent.com/juliangumenita/simple-effing-primitive-layout/main/src/Demo/Assets/Header.svg"/></a>
+<a href="https://github.com/juliangumenita/simple-effing-primitive-layout"><img alt="simple-effing-primitive-layout" src="https://raw.githubusercontent.com/juliangumenita/simple-effing-primitive-layout/main/src/demo/assets/header.svg"/></a>
 <br />
+
 <div align="center"><strong>Simple f*cking primitive layout for React.</strong></div>
 <div align="center">Lightweight, customizable and super fast.</div>
 <br />

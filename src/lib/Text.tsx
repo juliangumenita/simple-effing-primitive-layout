@@ -1,9 +1,65 @@
 import React from "react";
 
-const Component = ({
+interface TextProps {
+  size?: number;
+  family?: string;
+  press?: React.MouseEventHandler<HTMLAnchorElement>;
+  style?: React.CSSProperties;
+  children?:
+    | JSX.Element
+    | React.JSX.Element
+    | React.ReactElement
+    | React.ReactNode
+    | string
+    | number
+    | null
+    | undefined
+    | (
+        | JSX.Element
+        | React.JSX.Element
+        | React.ReactElement
+        | React.ReactNode
+        | string
+        | number
+        | null
+        | undefined
+      )[];
+  right?: number;
+  left?: number;
+  top?: number;
+  bottom?: number;
+  margin?: boolean;
+  padding?: boolean;
+  mode?: "margin" | "padding" | "position";
+  display?: "inline" | "block" | "inline-block" | "flex" | "none";
+  opacity?: number;
+  color?: string;
+  line?: number;
+  align?: "left" | "center" | "right";
+  weight?:
+    | "100"
+    | "200"
+    | "300"
+    | "400"
+    | "500"
+    | "600"
+    | "700"
+    | "800"
+    | "900";
+  to?: string;
+  target?: string;
+  css?: string;
+  id?: string;
+  referrer?: React.Ref<HTMLElement>;
+  tag?: string;
+  native?: {
+    [key: string]: unknown;
+  };
+}
+
+export const Text = ({
   size = 16,
   family = "inherit",
-  lines = false,
   press,
   style,
   children,
@@ -17,7 +73,7 @@ const Component = ({
   display = "inline",
   opacity,
   color = "#000000",
-  line = false,
+  line,
   align,
   weight = "400",
   to,
@@ -27,8 +83,14 @@ const Component = ({
   referrer,
   tag = "span",
   native = {},
-}) => {
-  const Tag = `${tag}`;
+}: TextProps) => {
+  const Tag = `${tag}` as keyof JSX.IntrinsicElements;
+
+  const extra: {
+    [key: string]: unknown;
+  } = {
+    ref: referrer,
+  };
 
   return to ? (
     <a
@@ -95,7 +157,7 @@ const Component = ({
       }}
       className={css}
       id={id}
-      ref={referrer}
+      {...extra}
       {...native}
     >
       {children}
@@ -103,4 +165,4 @@ const Component = ({
   );
 };
 
-export default Component;
+export default Text;

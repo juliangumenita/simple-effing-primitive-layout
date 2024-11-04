@@ -55,9 +55,9 @@ const Box = ({
   const parsed = parse
     ? Parser.parse(parse)
     : {
-        style: {},
-        classes: "",
-      };
+      style: {},
+      classes: "",
+    };
 
   const styles = {
     ...apply({}, [
@@ -92,9 +92,9 @@ const Box = ({
       ["boxSizing", top || left || right || bottom ? "border-box" : undefined],
       ["zIndex", layer],
       ["backgroundImage", image],
-      ["backgroundRepeat", "no-repeat"],
-      ["backgroundSize", "cover"],
-      ["backgroundPosition", "center"],
+      ["backgroundRepeat", image ? "no-repeat" : undefined],
+      ["backgroundSize", image ? "cover" : undefined],
+      ["backgroundPosition", image ? "center" : undefined],
     ]),
     ...parsed.style,
     ...style,

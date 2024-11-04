@@ -1,7 +1,12 @@
 import Memorize from "./Memorize";
+import Cache from "./Cache";
 
 class Parser {
   static parse(string = "") {
+    if (Cache.has(string)) {
+      return Cache.get(string);
+    }
+
     const keys = this.keys();
     const statics = this.statics();
     const auto = this.auto();
@@ -13,7 +18,7 @@ class Parser {
 
       const _items = [];
 
-      items.map((item, b) => {
+      items.forEach((item, b) => {
         if (item.includes("@")) {
           return this.transform(item)
             .split(" ")
@@ -22,7 +27,7 @@ class Parser {
         return _items.push(item);
       });
 
-      _items.map((item) => {
+      _items.forEach((item) => {
         const values = item.split(":");
 
         if (values.length === 2) {
@@ -60,6 +65,8 @@ class Parser {
         }
       });
     }
+
+    Cache.set(string, { style, classes });
 
     return { style, classes };
   }
@@ -192,7 +199,7 @@ class Parser {
   }
 
   static declare(items = {}) {
-    Object.entries(items).map(([key, value]) => {
+    Object.entries(items).forEach(([key, value]) => {
       Memorize.set(key, String(value));
     });
   }

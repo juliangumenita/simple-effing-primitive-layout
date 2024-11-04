@@ -18,11 +18,7 @@ const Screen = ({ children }) => {
       {[...Array(100)].map((a, aa) => (
         <Box css="d:inline-flex a:center j:center fw:wrap block">
           {[...Array(100)].map((b, bb) => (
-            <Box css="d:inline-flex a:center j:center fw:wrap block">
-              {[...Array(1)].map((c, cc) => (
-                <Box css="d:inline-flex a:center j:center fw:wrap block" />
-              ))}
-            </Box>
+            <Box css="d:inline-flex a:center j:center fw:wrap block" />
           ))}
         </Box>
       ))}

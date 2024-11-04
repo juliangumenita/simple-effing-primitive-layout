@@ -770,6 +770,10 @@
   border-radius: 25px;
 }
 
+.br\:999 {
+  border-radius: 999px;
+}
+
 .br\:auto {
   border-radius: auto;
 }
@@ -950,5 +954,73 @@ t: ["0", "auto", "inherit", "unset", "100%", "0%"],
 }
 
 .z\:unset {
+  z-index: unset;
+}
+
+.i\:0 {
+  z-index: 0;
+}
+
+.i\:1 {
+  z-index: 1;
+}
+
+.i\:2 {
+  z-index: 2;
+}
+
+.i\:3 {
+  z-index: 3;
+}
+
+.i\:4 {
+  z-index: 4;
+}
+
+.i\:5 {
+  z-index: 5;
+}
+
+.i\:6 {
+  z-index: 6;
+}
+
+.i\:7 {
+  z-index: 7;
+}
+
+.i\:8 {
+  z-index: 8;
+}
+
+.i\:9 {
+  z-index: 9;
+}
+
+.i\:10 {
+  z-index: 10;
+}
+
+.i\:99 {
+  z-index: 99;
+}
+
+.i\:999 {
+  z-index: 999;
+}
+
+.i\:9999 {
+  z-index: 9999;
+}
+
+.i\:auto {
+  z-index: auto;
+}
+
+.i\:inherit {
+  z-index: inherit;
+}
+
+.i\:unset {
   z-index: unset;
 }

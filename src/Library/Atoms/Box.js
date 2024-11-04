@@ -1,14 +1,19 @@
 import React from "react";
 import Parser from "../Modules/Parser";
 
-const apply = (styles = {}, rule = "", value = null, defaults = null) => {
-  if (value) {
-    styles[rule] = value;
-  } else {
-    if (defaults) {
-      styles[rule] = defaults;
+const apply = (styles = {}, operations = []) => {
+  operations.forEach((operation) => {
+    const [rule = "", value = null, defaults = null] = operation;
+
+    if (value) {
+      styles[rule] = value;
+    } else {
+      if (defaults) {
+        styles[rule] = defaults;
+      }
     }
-  }
+  });
+
   return styles;
 };
 
@@ -47,131 +52,53 @@ const Box = ({
   native = {},
   element = "div",
 }) => {
-  const parsed = React.useMemo(() => {
-    return parse
-      ? Parser.parse(parse)
-      : {
-          style: {},
-          classes: "",
-        };
-  }, [parse]);
+  const parsed = parse
+    ? Parser.parse(parse)
+    : {
+        style: {},
+        classes: "",
+      };
 
-  const styles = React.useMemo(() => {
-    let _styles = {};
-
-    _styles = apply(_styles, "height", height);
-    _styles = apply(_styles, "width", width);
-    _styles = apply(_styles, "opacity", opacity);
-    _styles = apply(_styles, "over", overflow);
-    _styles = apply(_styles, "display", display);
-    _styles = apply(_styles, "border", border);
-    _styles = apply(_styles, "position", position);
-    _styles = apply(_styles, "cursor", press ? "pointer" : undefined);
-    _styles = apply(_styles, "backgroundColor", color);
-    _styles = apply(_styles, "borderRadius", radius);
-    _styles = apply(_styles, "flex", flex);
-    _styles = apply(_styles, "flexDirection", direction);
-    _styles = apply(_styles, "flexWrap", wrap);
-    _styles = apply(_styles, "alignItems", align);
-    _styles = apply(_styles, "justifyContent", justify);
-    _styles = apply(
-      _styles,
-      "paddingTop",
-      padding || mode === "padding" ? top : undefined
-    );
-    _styles = apply(
-      _styles,
-      "paddingLeft",
-      padding || mode === "padding" ? left : undefined
-    );
-    _styles = apply(
-      _styles,
-      "paddingBottom",
-      padding || mode === "padding" ? bottom : undefined
-    );
-    _styles = apply(
-      _styles,
-      "paddingRight",
-      padding || mode === "padding" ? right : undefined
-    );
-    _styles = apply(
-      _styles,
-      "marginTop",
-      margin || mode === "margin" ? top : undefined
-    );
-    _styles = apply(
-      _styles,
-      "marginLeft",
-      margin || mode === "margin" ? left : undefined
-    );
-    _styles = apply(
-      _styles,
-      "marginBottom",
-      margin || mode === "margin" ? bottom : undefined
-    );
-    _styles = apply(
-      _styles,
-      "marginRight",
-      margin || mode === "margin" ? right : undefined
-    );
-    _styles = apply(_styles, "top", mode === "position" ? top : undefined);
-    _styles = apply(_styles, "left", mode === "position" ? left : undefined);
-    _styles = apply(
-      _styles,
-      "bottom",
-      mode === "position" ? bottom : undefined
-    );
-    _styles = apply(_styles, "right", mode === "position" ? right : undefined);
-    _styles = apply(_styles, "boxShadow", shadow);
-    _styles = apply(
-      _styles,
-      "boxSizing",
-      top || left || right || bottom ? "border-box" : undefined
-    );
-    _styles = apply(_styles, "zIndex", layer);
-    if (image) {
-      _styles = apply(_styles, "backgroundImage", image);
-      _styles = apply(_styles, "backgroundRepeat", "no-repeat");
-      _styles = apply(_styles, "backgroundSize", "cover");
-      _styles = apply(_styles, "backgroundPosition", "center");
-    }
-
-    _styles = {
-      ..._styles,
-      ...parsed.style,
-      ...style,
-    };
-
-    return _styles;
-  }, [
-    height,
-    width,
-    opacity,
-    overflow,
-    display,
-    border,
-    position,
-    press,
-    color,
-    radius,
-    flex,
-    direction,
-    wrap,
-    align,
-    justify,
-    padding,
-    margin,
-    mode,
-    top,
-    left,
-    bottom,
-    right,
-    shadow,
-    layer,
-    image,
-    parse,
-    style,
-  ]);
+  const styles = {
+    ...apply({}, [
+      ["height", height],
+      ["width", width],
+      ["opacity", opacity],
+      ["overflow", overflow],
+      ["display", display],
+      ["border", border],
+      ["position", position],
+      ["cursor", press ? "pointer" : undefined],
+      ["backgroundColor", color],
+      ["borderRadius", radius],
+      ["flex", flex],
+      ["flexDirection", direction],
+      ["flexWrap", wrap],
+      ["alignItems", align],
+      ["justifyContent", justify],
+      ["paddingTop", padding || mode === "padding" ? top : undefined],
+      ["paddingLeft", padding || mode === "padding" ? left : undefined],
+      ["paddingBottom", padding || mode === "padding" ? bottom : undefined],
+      ["paddingRight", padding || mode === "padding" ? right : undefined],
+      ["marginTop", margin || mode === "margin" ? top : undefined],
+      ["marginLeft", margin || mode === "margin" ? left : undefined],
+      ["marginBottom", margin || mode === "margin" ? bottom : undefined],
+      ["marginRight", margin || mode === "margin" ? right : undefined],
+      ["top", mode === "position" ? top : undefined],
+      ["left", mode === "position" ? left : undefined],
+      ["bottom", mode === "position" ? bottom : undefined],
+      ["right", mode === "position" ? right : undefined],
+      ["boxShadow", shadow],
+      ["boxSizing", top || left || right || bottom ? "border-box" : undefined],
+      ["zIndex", layer],
+      ["backgroundImage", image],
+      ["backgroundRepeat", "no-repeat"],
+      ["backgroundSize", "cover"],
+      ["backgroundPosition", "center"],
+    ]),
+    ...parsed.style,
+    ...style,
+  };
 
   const Element = `${element}`;
 
